@@ -48,7 +48,7 @@ abstract class AndroidPackageManager {
     required List<String> packageNames,
   }) => throw UnimplementedError();
 
-  Future<Uint8List?> getActivityDrawableResource({
+  Future<List<int>?> getActivityDrawableResource({
     required ComponentName componentName,
     required ActivityResourceType type,
   }) => throw UnimplementedError();
@@ -61,7 +61,7 @@ abstract class AndroidPackageManager {
 
   Future<bool?> getComponentEnabledSetting({required String packageName,});
 
-  Future<Uint8List?> getDefaultActivityIcon();
+  Future<List<int>?> getDefaultActivityIcon();
 
   Future<List<ApplicationInfo>?> getInstalledApplications({
     ApplicationInfoFlags? flags,
