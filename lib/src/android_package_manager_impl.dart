@@ -71,7 +71,7 @@ class AndroidPackageManagerImpl extends AndroidPackageManager {
   );
 
   @override
-  Future<Uint8List?> getActivityDrawableResource({
+  Future<List<int>?> getActivityDrawableResource({
     required ComponentName componentName,
     required ActivityResourceType type,
   }) {
@@ -80,7 +80,7 @@ class AndroidPackageManagerImpl extends AndroidPackageManager {
       ActivityResourceType.icon: "getActivityIcon",
       ActivityResourceType.logo: "getActivityLogo",
     };
-    return _channel.invokeMethod<Uint8List>(
+    return _channel.invokeMethod<List<int>>(
       availableMethods[type]!, componentName.asMap,
     );
   }
@@ -113,7 +113,7 @@ class AndroidPackageManagerImpl extends AndroidPackageManager {
   );
 
   @override
-  Future<Uint8List?> getDefaultActivityIcon() => _channel.invokeMethod<Uint8List>(
+  Future<List<int>?> getDefaultActivityIcon() => _channel.invokeMethod<List<int>>(
     "getDefaultActivityIcon",
   );
 
