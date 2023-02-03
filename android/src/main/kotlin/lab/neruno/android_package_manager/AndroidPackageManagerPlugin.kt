@@ -90,6 +90,7 @@ class AndroidPackageManagerPlugin: FlutterPlugin, MethodCallHandler, ActivityAwa
             "getInstalledApplications" -> getInstalledApplications(call, result)
             "getInstalledModules" -> getInstalledModules(result)
             "getInstalledPackages" -> getInstalledPackages(call, result)
+            "getInstallerPackageName" -> getInstallerPackageName(call, result)
             "getInstantAppCookie" -> getInstantAppCookie(result)
             "getInstantAppCookieMaxBytes" -> getInstantAppCookieMaxBytes(result)
             "getInstrumentationInfo" -> getInstrumentationInfo(call, result)
@@ -680,6 +681,21 @@ class AndroidPackageManagerPlugin: FlutterPlugin, MethodCallHandler, ActivityAwa
                 it.toMap()
             }}
         )
+    }
+
+    private fun getInstallerPackageName(call: MethodCall, result: Result) {
+        val packageName = call.argument<String>("packageName")
+                ?: throw IllegalArgumentException("Missing argument packageName")
+
+        try {
+            if (!isAtLeastAndroid30()) {
+                result.success(packageManager.getInstallerPackageName(packageName))
+            } else {
+                result.success(packageManager.getInstallSourceInfo(packageName).getInitiatingPackageName())
+            }
+        } catch (ex: IllegalArgumentException) {
+            result.error(ex.javaClass.name, ex.message, null)
+        }
     }
 
     private fun getInstantAppCookie(result: Result) {

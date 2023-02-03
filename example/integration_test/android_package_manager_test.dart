@@ -71,6 +71,17 @@ void main() {
       );
 
       test(
+        "getInstallerPackageName",
+            () async {
+          final installerPackageName = await pm.getInstallerPackageName(
+            "com.google.android.youtube",
+          );
+          print(installerPackageName);
+          expect(installerPackageName == null, true,);
+        },
+      );
+
+      test(
         "getSystemAvailableFeatures",
         () async {
           final features = await pm.getSystemAvailableFeatures();
