@@ -71,6 +71,9 @@ abstract class AndroidPackageManager {
     PackageInfoFlags? flags,
   }) => throw UnimplementedError();
 
+  Future<String?> getInstallerPackageName(String packageName) =>
+      throw UnimplementedError();
+
   Future<InstrumentationInfo?> getInstrumentationInfo({
     required ComponentName componentName,
   }) => throw UnimplementedError();

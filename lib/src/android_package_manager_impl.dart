@@ -148,6 +148,14 @@ class AndroidPackageManagerImpl extends AndroidPackageManager {
   }
 
   @override
+  Future<String?> getInstallerPackageName(String packageName) async {
+    return await _channel.invokeMethod(
+      "getInstallerPackageName",
+      {"packageName": packageName},
+    );
+  }
+
+  @override
   Future<InstrumentationInfo?> getInstrumentationInfo({
     required ComponentName componentName,
   }) async {
