@@ -238,7 +238,13 @@ class AndroidPackageManagerPlugin: FlutterPlugin, MethodCallHandler, ActivityAwa
 
     private fun provideFlags(call: MethodCall): Int = call.argument<Int>(flags) ?: 0
 
-    private fun provideFlagsAsLong(call: MethodCall): Long = call.argument<Long>(flags) ?: 0
+    private fun provideFlagsAsLong(call: MethodCall): Long {
+        return try {
+            call.argument<Long>(flags) ?: 0
+        } catch (e: ClassCastException) {
+            call.argument<Int>(flags)?.toLong() ?: 0
+        }
+    }
 
     @Suppress("UNNECESSARY_SAFE_CALL")
     private fun <F, T> runWithFlags(
